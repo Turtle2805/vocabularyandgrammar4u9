@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Thiết Kế Bài Tập Tiếng Anh 9 - Ms Lê Hằng English (Exercise 3)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght=400;700;900&family=Quicksand:wght=500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --accent-yellow: #FDCB6E;
+            --accent-teal: #00C9A7;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --card-bg: #ffffff;
+            --text-main: #2D3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Quicksand', 'Nunito', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            background-size: 400% 400%;
+            animation: gradientAnimation 12s ease infinite;
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.18;
+        }
+
+        .header-container {
+            text-align: center;
+            padding: 20px 10px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-container h5 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 700;
+            background: rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 20px;
+        }
+
+        .warning-box {
+            background: #ffffff;
+            color: #2D3436;
+            max-width: 680px;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 24px;
+            border: 4px solid var(--accent-yellow);
+            box-shadow: 0 8px 0 var(--accent-yellow);
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            margin-top: 0;
+            color: #E67E22;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 6px 0;
+            font-weight: 700;
+        }
+
+        .scroll-reminder {
+            color: #8854C0;
+            font-style: italic;
+            animation: bounce 1.4s infinite;
+            display: inline-block;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        .progress-container {
+            max-width: 720px;
+            margin: 15px auto;
+            padding: 0 15px;
+        }
+        .progress-bar-wrapper {
+            background: rgba(255,255,255,0.35);
+            border-radius: 15px;
+            height: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #00D26A, #00C9A7);
+            border-radius: 15px;
+            transition: width 0.4s ease;
+        }
+
+        .quiz-container {
+            max-width: 720px;
+            margin: 0 auto 40px auto;
+            padding: 0 15px;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            border: 3px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .category-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 900;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.6;
+            color: #2D3436;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 2px solid #E4E7EB;
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 0 #E4E7EB;
+            transition: all 0.12s ease;
+        }
+
+        .option-btn:hover:not(.disabled) {
+            transform: scale(1.015) translateY(-2px);
+            box-shadow: 0 7px 0 #CED6E0;
+            border-color: #A4B0BE;
+        }
+
+        .option-btn:active:not(.disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #CED6E0;
+        }
+
+        .option-prefix {
+            background: #F1F2F6;
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+            margin-right: 12px;
+            font-weight: 900;
+            color: #57606F;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00A854 !important;
+            box-shadow: 0 5px 0 #00A854 !important;
+        }
+        .option-btn.correct .option-prefix {
+            background: rgba(255,255,255,0.35) !important;
+            color: white !important;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #D63031 !important;
+            box-shadow: 0 5px 0 #D63031 !important;
+        }
+        .option-btn.wrong .option-prefix {
+            background: rgba(255,255,255,0.35) !important;
+            color: white !important;
+        }
+
+        .shake { animation: shakeAnim 0.4s ease-in-out; }
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            25%, 75% { transform: translateX(-6px); }
+            50% { transform: translateX(6px); }
+        }
+
+        .explanation-box {
+            margin-top: 18px; padding: 18px;
+            background-color: #F9F2FF; border-left: 6px solid var(--primary-color);
+            border-radius: 12px; font-size: 14px; line-height: 1.6;
+            display: none; animation: fadeIn 0.35s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .exp-title { color: var(--primary-color); font-weight: 900; margin-bottom: 8px; font-size: 15px; }
+
+        .submit-btn-wrapper { text-align: center; margin: 40px 0; }
+        .submit-all-btn { background: #FF7675; color: white; border: none; border-radius: 25px; padding: 15px 45px; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 7px 0 #E25E5E; transition: all 0.2s; }
+        .submit-all-btn:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 9px 0 #E25E5E; }
+
+        .result-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+        .result-box { background: white; padding: 35px; border-radius: 32px; max-width: 520px; width: 90%; text-align: center; border: 6px solid var(--accent-teal); }
+        .result-score { font-size: 45px; font-weight: 900; color: var(--primary-color); margin: 12px 0; }
+        .result-comment { font-size: 15px; line-height: 1.6; font-weight: 700; color: #2D3436; background: #F1F2F6; padding: 15px; border-radius: 16px; margin-bottom: 20px; }
+        .close-result-btn { background: var(--accent-teal); color: white; border: none; padding: 12px 30px; border-radius: 20px; font-weight: 900; cursor: pointer; box-shadow: 0 5px 0 #00A387; }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1500; pointer-events: none; }
+        u { text-decoration: underline; color: #E74C3C; font-weight: 900; }
+        b { color: #2D3436; }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <svg class="bg-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+            <pattern id="shapes" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M20,5 L23,13 L32,13 L25,18 L27,27 L20,22 L13,27 L15,18 L8,13 L17,13 Z" fill="#FFF" opacity="0.35" transform="translate(10,10) scale(0.5)"/>
+                <circle cx="60" cy="60" r="5" fill="#FFF" opacity="0.4"/>
+                <path d="M70,20 C73,15 82,15 85,20 C89,19 95,24 93,29 C96,34 91,40 85,38 C82,42 73,42 70,38 C65,39 61,33 64,29 C61,24 66,19 70,20 Z" fill="#FFF" opacity="0.25" transform="translate(-20,10) scale(0.5)"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#shapes)" />
+    </svg>
+
+    <div class="header-container">
+        <h5>Giáo viên tạo: Ms Lê Hằng English</h5>
+        <div class="warning-box">
+            <h3>⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</h3>
+            <p>Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.</p>
+            <p>Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!</p>
+            <p class="scroll-reminder">* Kéo tới đâu, làm tới đó! *</p>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar-wrapper">
+            <div id="quiz-progress" class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="quiz-cards-wrapper" class="quiz-container"></div>
+
+    <div class="submit-btn-wrapper">
+        <button class="submit-all-btn" onclick="showFinalScore()">🎉 NỘP BÀI TỔNG KẾT 🎉</button>
+    </div>
+
+    <div id="result-modal" class="result-modal">
+        <div class="result-box">
+            <h2>Kết Quả Của Con</h2>
+            <div id="score-text" class="result-score">0 / 0</div>
+            <div id="comment-text" class="result-comment"></div>
+            <button class="close-result-btn" onclick="closeResultModal()">Đóng và xem lại</button>
+        </div>
+    </div>
+
+    <script>
+        const originalQuestions = [
+  {
+    "id": "q1",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Walking ______ on the beach brought back a sense of carefree summers.",
+    "options": ["riding a horse", "by bus", "by bicycle", "barefoot"],
+    "correctText": "barefoot",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Việc đi bộ chân trần (barefoot) trên bãi biển mang lại cảm giác của những mùa hè vô tư lự.<br><b>Từ vựng cốt lõi:</b> <i>barefoot (adv/adj):</i> chân trần, không mang giày dép."
+  },
+  {
+    "id": "q2",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The recipe called for fresh, local ______.",
+    "options": ["ingredients", "wooden spoon", "dessert", "foods"],
+    "correctText": "ingredients",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Công thức nấu ăn yêu cầu các nguyên liệu (ingredients) tươi ngon tại địa phương.<br><b>Từ vựng cốt lõi:</b> <i>ingredients (n):</i> các nguyên liệu nấu ăn."
+  },
+  {
+    "id": "q3",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Grandma's kitchen was filled with delicious ______ and the warmth of family.",
+    "options": ["ingredients", "drinks", "meat", "dishes"],
+    "correctText": "dishes",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Căn bếp của bà luôn ngập tràn những món ăn (dishes) thơm ngon và sự ấm áp của gia đình.<br><b>Từ vựng cốt lõi:</b> <i>dishes (n):</i> các món ăn."
+  },
+  {
+    "id": "q4",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The smell of ______ took me back to seaside holidays.",
+    "options": ["meals", "fish and chips", "serving", "main course"],
+    "correctText": "fish and chips",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Mùi hương của món cá và khoai tây chiên (fish and chips) đưa tớ trở về với những kỳ nghỉ bên bờ biển."
+  },
+  {
+    "id": "q5",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "______ refer to people with small carts offering a quick snack or little stalls selling different things on the street.",
+    "options": ["Takeaway", "Communal", "Street vendors", "Fish and chips"],
+    "correctText": "Street vendors",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Người bán hàng rong (Street vendors) ám chỉ những người có xe đẩy nhỏ cung cấp đồ ăn nhẹ hoặc các quầy hàng nhỏ bán những thứ khác nhau trên đường phố."
+  },
+  {
+    "id": "q6",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In rural areas, we can always see ______ kids playing football in a field.",
+    "options": ["walking", "running", "barefoot", "bare-footed"],
+    "correctText": "barefoot",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Ở các vùng nông thôn, chúng ta luôn có thể bắt gặp những đứa trẻ đi chân trần (barefoot) đá bóng trên đồng ruộng."
+  },
+  {
+    "id": "q7",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Respect for elders is a ______ value in our culture.",
+    "options": ["giving", "popular", "customary", "deep-rooted"],
+    "correctText": "deep-rooted",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Tôn trọng người lớn tuổi là một giá trị lâu đời/ăn sâu bám rễ (deep-rooted) trong nền văn hóa của chúng ta."
+  },
+  {
+    "id": "q8",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We are proud of our rich cultural ______.",
+    "options": ["traditions", "customary", "heritage", "traditional"],
+    "correctText": "heritage",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Chúng ta tự hào về di sản (heritage) văn hóa vô cùng phong phú của mình.<br><b>Cụm từ cố định:</b> <i>cultural heritage:</i> di sản văn hóa."
+  },
+  {
+    "id": "q9",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In the past, before the invention of telephones, people relied on ______ to share news and stories.",
+    "options": ["face to face", "takeaway", "messaging", "chatting online"],
+    "correctText": "face to face",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Trong quá khứ, trước khi điện thoại được phát minh, con người dựa vào việc trò chuyện trực tiếp (face to face) để chia sẻ tin tức."
+  },
+  {
+    "id": "q10",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Children in past times spent a lot of time playing outdoors instead of ______ games.",
+    "options": ["traditional", "computer", "ancient", "basic"],
+    "correctText": "computer",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Trẻ em thời xưa dành rất nhiều thời gian chơi ngoài trời thay vì chơi trò chơi máy tính (computer games)."
+  },
+  {
+    "id": "q11",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Many ______ are passed down through generations.",
+    "options": ["drinks", "traditions", "street food", "dishes"],
+    "correctText": "traditions",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Rất nhiều truyền thống (traditions) được truyền lại qua các thế hệ khác nhau."
+  },
+  {
+    "id": "q12",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The once ______ buildings now serve as museums, showcasing a bygone era.",
+    "options": ["occupied", "remained", "filled", "controlled"],
+    "correctText": "occupied",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Những tòa nhà từng bị chiếm đóng (occupied) ngày nay đóng vai trò như các viện bảo tàng, trưng bày về một thời đại đã qua."
+  },
+  {
+    "id": "q13",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The majestic ______ overlooked the town, steeped in history.",
+    "options": ["structure", "construction", "castle", "architecture"],
+    "correctText": "castle",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Tòa lâu đài (castle) hùng vĩ nhìn xuống thị trấn, mang đậm dấu ấn lịch sử lâu đời."
+  },
+  {
+    "id": "q14",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In the past, women were more ______ than men, as most of them weren't allowed to go to school.",
+    "options": ["uneducated", "illiterate", "barefoot", "basic"],
+    "correctText": "illiterate",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Trong quá khứ, phụ nữ bị mù chữ (illiterate) nhiều hơn đàn ông, vì hầu hết trong số họ không được phép đến trường."
+  },
+  {
+    "id": "q15",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "At 5.30 a.m. every day, the ______ outside wakes me up with the morning radio programs.",
+    "options": ["street vendor", "loudspeaker", "structure", "monument"],
+    "correctText": "loudspeaker",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Đúng 5h30 sáng mỗi ngày, chiếc loa phát thanh (loudspeaker) bên ngoài đánh thức tớ bằng các chương trình radio buổi sáng."
+  },
+  {
+    "id": "q16",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The ceremony involved ______ at the ancestral altar.",
+    "options": ["pray", "worshipping", "preserving", "tradition"],
+    "correctText": "worshipping",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Nghi lễ bao gồm việc thờ cúng (worshipping) tại bàn thờ tổ tiên.<br><b>Từ vựng:</b> <i>worship (v):</i> thờ cúng, tôn kính."
+  },
+  {
+    "id": "q17",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We gathered to ______ our shared cultural heritage.",
+    "options": ["celebrate", "gets", "going", "becoming"],
+    "correctText": "celebrate",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Chúng ta tụ họp lại cùng nhau để kỷ niệm/tôn vinh (celebrate) di sản văn hóa chung."
+  },
+  {
+    "id": "q18",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We need to take action to ______ the rainforests from illegal logging.",
+    "options": ["destroy", "protect", "promote", "preserve"],
+    "correctText": "protect",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Chúng ta cần phải hành động để bảo vệ (protect) các khu rừng nhiệt đới khỏi nạn khai thác gỗ lậu.<br><b>Cấu trúc:</b> <i>protect something from...:</i> bảo vệ cái gì khỏi..."
+  },
+  {
+    "id": "q19",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Their ______ structures are skillfully crafted and range widely in design, many being equipped with doors to prevent strong winds.",
+    "options": ["igloo", "monument", "house", "castle"],
+    "correctText": "igloo",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Cấu trúc lều tuyết (igloo) của họ được chế tác vô cùng khéo léo và đa dạng về mặt thiết kế."
+  },
+  {
+    "id": "q20",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The announcement from the ______ brought back memories of school days.",
+    "options": ["television", "loudspeaker", "radio", "computer"],
+    "correctText": "loudspeaker",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Thông báo từ chiếc loa phát thanh (loudspeaker) gợi lại cho tớ những kỷ niệm sâu sắc thời cắp sách tới trường."
+  },
+  {
+    "id": "q21",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Unlike today’s children who wear shoes everywhere, children in the past spent most of their days ______ barefoot.",
+    "options": ["running", "playing", "walking", "wearing"],
+    "correctText": "walking",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Không giống như trẻ em ngày nay đi giày mọi nơi, trẻ em ngày xưa dành phần lớn thời gian đi bộ (walking) chân trần."
+  },
+  {
+    "id": "q22",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In the past, our villages did not have ______ conveniences like refrigerators and washing machines.",
+    "options": ["traditional", "deep-rooted", "communal", "modern"],
+    "correctText": "modern",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Trong quá khứ, làng quê của chúng ta không có các tiện nghi hiện đại (modern conveniences) như tủ lạnh hay máy giặt."
+  },
+  {
+    "id": "q23",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Ao dai is often worn for special occasions, but in the ______, it was daily clothing of Vietnamese women.",
+    "options": ["present", "past", "generation", "anniversary"],
+    "correctText": "past",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Áo dài thường được mặc vào các dịp đặc biệt, nhưng trong quá khứ (past), nó từng là trang phục hàng ngày của phụ nữ Việt Nam."
+  },
+  {
+    "id": "q24",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In ______ regions, the air is pure and the crops are free of poisonous insecticides.",
+    "options": ["occupied", "religious", "remote", "ancient"],
+    "correctText": "remote",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Ở các vùng sâu vùng xa (remote regions), bầu không khí vô cùng trong lành và cây trồng không bị nhiễm thuốc trừ sâu độc hại."
+  },
+  {
+    "id": "q25",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "It's common ______ in many countries for pupils to repeat a year if their grades are low.",
+    "options": ["practice", "effort", "tradition", "custom"],
+    "correctText": "practice",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Đó là một thông lệ/thực tế phổ biến (common practice) ở nhiều quốc gia khi học sinh phải ở lại lớp nếu điểm số quá kém."
+  },
+  {
+    "id": "q26",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In rural Vietnam of the past, most families lived in houses made of ______ materials like wood and bamboo.",
+    "options": ["complex", "basic", "well-preserved", "magnificent"],
+    "correctText": "basic",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Ở vùng nông thôn Việt Nam thời xưa, hầu hết các gia đình sống trong những ngôi nhà làm từ vật liệu cơ bản/thô sơ (basic materials) như gỗ và tre."
+  },
+  {
+    "id": "q27",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "A feeling of nostalgia ______ as I looked through old photographs.",
+    "options": ["appeared", "disappeared", "begin", "finished"],
+    "correctText": "appeared",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Một cảm giác hoài cổ xuất hiện (appeared) khi tớ lật xem lại những bức ảnh cũ.<br><b>Từ vựng:</b> <i>appear (v):</i> xuất hiện."
+  },
+  {
+    "id": "q28",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The aroma of food from the ______ reminded me of my childhood.",
+    "options": ["doctors", "electricians", "shoppers", "street vendors"],
+    "correctText": "street vendors",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Hương thơm của đồ ăn từ những người bán hàng rong (street vendors) gợi nhắc tớ nhớ về tuổi thơ."
+  },
+  {
+    "id": "q29",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Each ______ passes down stories and traditions to the next.",
+    "options": ["generation", "ancestor-worship", "ancestor", "country"],
+    "correctText": "generation",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Mỗi thế hệ (generation) lại truyền lại những câu chuyện và truyền thống tốt đẹp cho thế hệ kế tiếp."
+  },
+  {
+    "id": "q30",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The ancient ______ stood as silent witnesses to the passage of time.",
+    "options": ["piles", "towers", "monuments", "buildings"],
+    "correctText": "monuments",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Những công trình đài tưởng niệm/di tích cổ kính (ancient monuments) đứng sừng sững như những chứng nhân thầm lặng của thời gian."
+  },
+  {
+    "id": "q31",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "After a long day working in the rice fields, Ms. Loan feels a sense of ______ as she sits on her porch and watches the sunset.",
+    "options": ["peace", "tradition", "war", "effort"],
+    "correctText": "peace",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Sau một ngày dài làm việc trên cánh đồng lúa, cô Loan cảm nhận được một cảm giác bình yên (peace) khi ngồi trên hiên nhà ngắm hoàng hôn."
+  },
+  {
+    "id": "q32",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "This is the ______ in which Elizabeth recorded her childhood thoughts and secrets.",
+    "options": ["heritage", "tradition", "diary", "document"],
+    "correctText": "diary",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Đây chính là cuốn nhật ký (diary) mà Elizabeth đã ghi lại những suy nghĩ và bí mật thời thơ ấu của mình."
+  },
+  {
+    "id": "q33",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "My grandparents’ house faces ______, so we get to enjoy beautiful sunrises over the rice fields.",
+    "options": ["southern", "eastern", "northern", "western"],
+    "correctText": "eastern",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Ngôi nhà của ông bà tớ hướng về phía đông (eastern), vì vậy chúng tớ có thể tận hưởng những cảnh bình minh tuyệt đẹp trên cánh đồng lúa."
+  },
+  {
+    "id": "q34",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The house was ______ but filled with happy memories.",
+    "options": ["starter", "basic", "full", "dessert"],
+    "correctText": "basic",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Ngôi nhà tuy thô sơ/đơn giản (basic) nhưng chứa chan đầy ắp những kỷ niệm hạnh phúc."
+  },
+  {
+    "id": "q35",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The building has a ______ roof which makes it look like a giant mushroom.",
+    "options": ["complex", "domed", "magnificent", "circular"],
+    "correctText": "domed",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Tòa nhà có một mái vòm (domed roof) làm cho nó trông giống như một cây nấm khổng lồ."
+  },
+  {
+    "id": "q36",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The historical ______ housed artifacts from centuries past.",
+    "options": ["association", "assembly", "concentration", "complex"],
+    "correctText": "complex",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Quần thể di tích lịch sử (historical complex) là nơi lưu giữ các hiện vật từ nhiều thế kỷ trước."
+  },
+  {
+    "id": "q37",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The ______ architecture of the cathedral left me in awe.",
+    "options": ["significant", "magnificent", "efficient", "excellent"],
+    "correctText": "magnificent",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Kiến trúc tráng lệ/vĩ đại (magnificent architecture) của nhà thờ lớn khiến tớ vô cùng kinh ngạc."
+  },
+  {
+    "id": "q38",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The ancient ______ stood as a reminder of a bygone era.",
+    "options": ["accommodation", "house", "temple", "ceremony"],
+    "correctText": "temple",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Ngôi đền cổ kính (ancient temple) đứng sừng sững như một lời nhắc nhở về một kỷ nguyên đã qua."
+  },
+  {
+    "id": "q39",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Despite their ______ those old women were not treated with much respect in their tribe.",
+    "options": ["age", "heritage", "seniority", "generation"],
+    "correctText": "seniority",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Bất chấp thâm niên/vị thế cao tuổi (seniority) của họ, những người phụ nữ lớn tuổi đó không được đối xử quá tôn trọng trong bộ tộc của họ."
+  },
+  {
+    "id": "q40",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The ______ ceremonies transported me back to my childhood.",
+    "options": ["religion", "supernatural", "religious", "believing"],
+    "correctText": "religious",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Những nghi lễ tôn giáo (religious ceremonies) đưa tớ tìm về lại với những năm tháng tuổi thơ."
+  },
+  {
+    "id": "q41",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The ______ of historical sites allows us to connect with our ancestors.",
+    "options": ["storage", "safety", "preservation", "conservation"],
+    "correctText": "preservation",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Việc bảo tồn (preservation) các di tích lịch sử cho phép chúng ta kết nối sâu sắc với tổ tiên của mình."
+  },
+  {
+    "id": "q42",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "In the Mekong River ______, the rich soil deposited by the river makes ideal conditions for growing rice.",
+    "options": ["Delta", "Monument", "Castle", "Mountain"],
+    "correctText": "Delta",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Tại vùng đồng bằng (Delta) sông Mê Kông, lớp đất phù sa màu mỡ bồi đắp tạo điều kiện lý tưởng cho việc trồng lúa gạo."
+  },
+  {
+    "id": "q43",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We explored the flavors of the local ______ during our travels.",
+    "options": ["cuisine", "meal", "sausage", "breakfast"],
+    "correctText": "cuisine",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dịch nghĩa:</b> Chúng tớ khám phá những hương vị độc đáo của nền ẩm thực (cuisine) địa phương trong chuyến hành trình."
+  },
+  {
+    "id": "q44",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "It's a difficult question. I wish I ______ the answer.",
+    "options": ["had known", "would know", "knew", "know"],
+    "correctText": "knew",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Ước một điều trái ngược với hiện tại thực tế -> ta lùi động từ về thì Quá khứ đơn (knew)."
+  },
+  {
+    "id": "q45",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Kevin ______ for his final exams in his bedroom at 2 p.m. yesterday.",
+    "options": ["studies", "is studying", "studied", "was studying"],
+    "correctText": "was studying",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp Thì Quá khứ tiếp diễn:</b> Có mốc thời gian cụ thể trong quá khứ 'at 2 p.m. yesterday' -> chia <i>was/were + V-ing</i>."
+  },
+  {
+    "id": "q46",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "My grandparents don't like living in the city. They wish they ______ in the countryside.",
+    "options": ["live", "have lived", "would live", "lived"],
+    "correctText": "lived",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Ước trái ngược thực tại hiện tại -> lùi về Quá khứ đơn (lived)."
+  },
+  {
+    "id": "q47",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Julia ______ her house when she ______ the message from her father.",
+    "options": ["was leaving / received", "was leaving / was receiving", "left / was receiving", "left / received"],
+    "correctText": "was leaving / received",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Sự phối hợp thì:</b> Một hành động đang diễn ra (Quá khứ tiếp diễn) thì có một hành động khác xen vào (Quá khứ đơn) -> <i>was leaving / received</i>."
+  },
+  {
+    "id": "q48",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I'm fed up with this rain. I wish it ______ raining.",
+    "options": ["had stopped", "stopped", "stops", "stop"],
+    "correctText": "stopped",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Ước cho hiện tại thay đổi trạng thái đáng chán -> lùi về Quá khứ đơn (stopped)."
+  },
+  {
+    "id": "q49",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "When I see the kids playing football, I almost wish I ______ their age again.",
+    "options": ["would be", "could be", "am", "were"],
+    "correctText": "were",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước với động từ To be:</b> Trong câu ước trái ngược thực tại, động từ <i>To be</i> luôn được chia là <i>were</i> cho tất cả các ngôi chủ ngữ."
+  },
+  {
+    "id": "q50",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "______ Lisa and Rose ______ for groceries at the supermarket when you met them?",
+    "options": ["Was – shopping", "Are – shopping", "Were – shopping", "Do- shop"],
+    "correctText": "Were – shopping",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp Quá khứ tiếp diễn dạng nghi vấn:</b> Chủ ngữ số nhiều 'Lisa and Rose' đi kèm với <i>Were ... shopping</i> khi nói về hành động đang xảy ra tại thời điểm xen vào (when you met them)."
+  },
+  {
+    "id": "q51",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Sarah ______ a book while her brother was doing his homework.",
+    "options": ["will read", "reads", "was reading", "is reading"],
+    "correctText": "was reading",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Hành động song song:</b> Có liên từ <i>while</i> diễn tả hai hành động cùng xảy ra song song đồng thời trong quá khứ -> cả hai vế cùng chia Quá khứ tiếp diễn."
+  },
+  {
+    "id": "q52",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We were hiking in the mountains when we ______ a deer.",
+    "options": ["are spotting", "were spotting", "spotted", "spot"],
+    "correctText": "spotted",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Sự phối hợp thì:</b> Đang đi bộ leo núi (were hiking - hành động kéo dài) thì đột nhiên nhìn thấy một chú nai (spotted - hành động ngắn xen vào chia Quá khứ đơn)."
+  },
+  {
+    "id": "q53",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Our team ______ hard all week because we had an important match.",
+    "options": ["will train", "is training", "was training", "train"],
+    "correctText": "was training",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ cảnh quá khứ:</b> Vế sau chia quá khứ đơn 'had an important match', thể hiện tính liên tục kéo dài suốt cả tuần trong quá khứ nên chia Quá khứ tiếp diễn."
+  },
+  {
+    "id": "q54",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "When I was young, I always ______ my little brother whenever I had time.",
+    "options": ["teased", "would tease", "was teasing", "have teased"],
+    "correctText": "teased",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Thói quen trong quá khứ:</b> Miêu tả một chuỗi hành động lặp đi lặp lại mang tính thói quen trong quá khứ, đi kèm trạng từ 'always' chia ở Quá khứ đơn (teased)."
+  },
+  {
+    "id": "q55",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I ______ a new book about world history at the bookstore yesterday.",
+    "options": ["bought", "will buy", "buy", "was buying"],
+    "correctText": "bought",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dấu hiệu nhận biết:</b> Trạng từ thời gian 'yesterday' (ngày hôm qua) hiển thị rõ ràng -> chia thì Quá khứ đơn (bought)."
+  },
+  {
+    "id": "q56",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Hoa ______ English grammar all morning to improve her skills.",
+    "options": ["studying", "was studying", "was study", "study"],
+    "correctText": "was studying",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Tính liên tục của hành động:</b> Cụm từ 'all morning' nhấn mạnh tính liên tục của hành động diễn ra trong quá khứ -> chia Quá khứ tiếp diễn (was studying)."
+  },
+  {
+    "id": "q57",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Tuan wishes he ______ English perfectly well.",
+    "options": ["has spoken", "spoke", "is speaking", "speaks"],
+    "correctText": "spoke",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Tuấn ước bây giờ bạn ấy nói tiếng Anh hoàn hảo -> trái ngược hiện tại -> lùi thì về Quá khứ đơn (spoke)."
+  },
+  {
+    "id": "q58",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "My friends ______ around the world for years because they wanted to experience different cultures.",
+    "options": ["are travelling", "travel", "will travel", "were travelling"],
+    "correctText": "were travelling",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ cảnh quá khứ:</b> Vì động từ vế sau chia quá khứ đơn 'wanted', việc đi du lịch kéo dài liên tục trong nhiều năm của quá khứ nên chọn Quá khứ tiếp diễn."
+  },
+  {
+    "id": "q59",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "My mom ______ dinner at seven o'clock yesterday evening.",
+    "options": ["is cooking", "was cooking", "cooked", "were cooking"],
+    "correctText": "was cooking",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Thời điểm chính xác:</b> Có mốc giờ giấc cụ thể tại một thời điểm quá khứ 'at seven o'clock yesterday evening' -> chia Quá khứ tiếp diễn."
+  },
+  {
+    "id": "q60",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "Lan ______ at a local animal shelter three years ago.",
+    "options": ["volunteers", "was volunteering", "will volunteer", "diligent", "volunteered"],
+    "options": ["volunteers", "was volunteering", "will volunteer", "volunteered"],
+    "correctText": "volunteered",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Dấu hiệu Quá khứ đơn:</b> Cụm từ thời gian 'three years ago' (3 năm trước) chỉ một sự kiện đã chấm dứt hoàn toàn -> chia Quá khứ đơn (volunteered)."
+  },
+  {
+    "id": "q61",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I wish we ______ to a bigger house. I don't have my own room.",
+    "options": ["won't more", "moved", "moving", "will move"],
+    "correctText": "moved",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Thấy vế sau chia hiện tại đơn 'I don't have', chứng tỏ đây là lời ước trái thực tế hiện tại -> lùi động từ về Quá khứ đơn (moved)."
+  },
+  {
+    "id": "q62",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I wish Ann ______ here. She'd be able to help us.",
+    "options": ["has been", "were", "will be", "is"],
+    "correctText": "were",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Động từ To be trong câu ước:</b> Luôn ưu tiên dùng dạng giả định <i>were</i> cho tất cả các chủ ngữ ở câu ước hiện tại."
+  },
+  {
+    "id": "q63",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The chef was cooking dinner while the waiter ______ the tables.",
+    "options": ["was setting", "will set", "is setting", "sets"],
+    "correctText": "was setting",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Hành động xảy ra song song:</b> Liên từ <i>while</i> kết hợp hai hành động đang xảy ra đồng thời trong quá khứ -> cả hai bên cùng chia Quá khứ tiếp diễn."
+  },
+  {
+    "id": "q64",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "According to the reporter, the kids ______ in their classroom when the terrorists ______ the room.",
+    "options": ["studied / entered", "were studying / were entering", "were studying / entered", "studied / were entering"],
+    "correctText": "were studying / entered",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Phối hợp thì Quá khứ:</b> Các học sinh đang học bài (were studying - hành động kéo dài) thì bọn khủng bố bất ngờ xông vào phòng (entered - hành động ngắn xen vào chia Quá khứ đơn)."
+  },
+  {
+    "id": "q65",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I wish my friends spent less time ______ computer games and more time outdoors.",
+    "options": ["play", "played", "playing", "to play"],
+    "correctText": "playing",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Cấu trúc danh động từ:</b> Cụm cấu trúc quen thuộc <i>spend time + V-ing:</i> dành thời gian làm việc gì."
+  },
+  {
+    "id": "q66",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We ______ when the teacher ______ into the class.",
+    "options": ["did not argue / was stepping", "were not arguing / was stepping", "were not arguing / stepped", "did not argue / stepped"],
+    "correctText": "were not arguing / stepped",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Sự phối hợp thì:</b> Chúng tớ đang không tranh cãi (were not arguing) thì cô giáo bước chân vào lớp học (stepped)."
+  },
+  {
+    "id": "q67",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We were having a barbecue in the backyard when the neighbours ______ over.",
+    "options": ["come", "came", "were coming", "comed"],
+    "correctText": "came",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Hành động xen vào:</b> Đang ăn tiệc nướng (were having) thì hàng xóm ghé sang chơi (came - động từ bất quy tắc chia ở Quá khứ đơn)."
+  },
+  {
+    "id": "q68",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "John _________ the new camera when his girlfriend ______ the room.",
+    "options": ["tested / entered", "was testing / entered", "was testing / was entering", "tested / was entering"],
+    "correctText": "was testing / entered",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Phối hợp hành động:</b> John đang thử nghiệm chiếc máy ảnh mới (was testing) thì bạn gái mở cửa bước vào phòng (entered)."
+  },
+  {
+    "id": "q69",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I wish people in the world ______ conflicts and live in peace.",
+    "options": ["doesn't have", "don't have", "didn't having", "didn't have"],
+    "correctText": "didn't have",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Ước cho hiện tại thay đổi thực trạng chiến tranh -> mượn trợ động từ phủ định thời quá khứ <i>didn't + V-inf</i> (didn't have)."
+  },
+  {
+    "id": "q70",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "We ______ in the park when it suddenly started raining.",
+    "options": ["walk", "are walking", "were walking", "will walk"],
+    "correctText": "were walking",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Bản chất sự việc:</b> Chúng tớ đang đi dạo bộ trong công viên (were walking) thì trời bỗng nhiên đổ cơn mưa (started)."
+  },
+  {
+    "id": "q71",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "It's freezing today. I wish it ______ so cold. I hate cold weather.",
+    "options": ["wasn't", "weren't", "wouldn't be", "had been"],
+    "correctText": "weren't",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Câu ước ở hiện tại với động từ To be ở dạng phủ định:</b> Chia dạng giả định <i>weren't</i> cho tất cả các ngôi."
+  },
+  {
+    "id": "q72",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "They were watching a movie when the power ______ out.",
+    "options": ["went", "were going", "goes", "was going"],
+    "correctText": "went",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Hành động xen vào:</b> Họ đang xem phim truyền hình (were watching) thì hệ thống điện đột ngột bị mất/bị ngắt (went out)."
+  },
+  {
+    "id": "q73",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "While I ______ my homework, my brother was playing games.",
+    "options": ["do", "did", "was doing", "am doing"],
+    "correctText": "was doing",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Hành động xảy ra song song đồng thời:</b> Liên từ <i>While</i> đứng trước hành động đang diễn ra liên tục kéo dài -> chia Quá khứ tiếp diễn (was doing)."
+  },
+  {
+    "id": "q74",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "I wish I ______ more time to visit my grandparents this weekend.",
+    "options": ["have", "had", "will have", "am having"],
+    "correctText": "had",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Ngữ pháp câu ước (Wish):</b> Thể hiện ước muốn không có thật ở hiện tại/tương lai gần cuối tuần này -> lùi về Quá khứ đơn (had)."
+  },
+  {
+    "id": "q75",
+    "type": "mcq",
+    "category": "Exercise 3: Multiple Choice",
+    "question": "The sun ______ when we reached the beach.",
+    "options": ["shines", "shone", "was shining", "is shining"],
+    "correctText": "was shining",
+    "explanation": "<div class='exp-title'>🌟 MS LÊ HẰNG ENGLISH GIẢI THÍCH CHI TIẾT 🌟</div><b>Bối cảnh không gian:</b> Khi chúng tớ đi đến bãi biển (reached), ánh mặt trời đang tỏa nắng rực rỡ (was shining - hành động làm nền đang diễn ra liên tục)."
+  }
+];
+
+        let userAnswers = {};
+        let shuffledQuestions = [];
+        let audioCtxInstance = null;
+
+        function initAudio() {
+            if (!audioCtxInstance) { audioCtxInstance = new (window.AudioContext || window.webkitAudioContext)(); }
+        }
+
+        function playSound(type) {
+            try {
+                initAudio();
+                const ctx = audioCtxInstance;
+                const now = ctx.currentTime;
+                if (type === 'correct') {
+                    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08); osc.frequency.setValueAtTime(783.99, now + 0.16);
+                    gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.35);
+                } else {
+                    const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(261.63, now);
+                    osc.frequency.setValueAtTime(220.00, now + 0.1); osc.frequency.setValueAtTime(174.61, now + 0.2);
+                    gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                    osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.4);
+                }
+            } catch(e) {}
+        }
+
+        function triggerConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            let particles = [];
+            const palette = ['#FFC107', '#FF5722', '#E91E63', '#9C27B0', '#00BCD4', '#00D26A', '#FF4757'];
+            for (let i = 0; i < 70; i++) {
+                particles.push({
+                    x: window.innerWidth / 2, y: window.innerHeight / 2,
+                    size: Math.random() * 6 + 5, color: palette[Math.floor(Math.random() * palette.length)],
+                    speedX: Math.random() * 12 - 6, speedY: Math.random() * -12 - 4,
+                    gravity: 0.35, rotation: Math.random() * 360, rotationSpeed: Math.random() * 8 - 4, opacity: 1
+                });
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let live = false;
+                particles.forEach(p => {
+                    p.speedY += p.gravity; p.x += p.speedX; p.y += p.speedY; p.rotation += p.rotationSpeed;
+                    if (p.y < canvas.height && p.opacity > 0) {
+                        live = true; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rotation * Math.PI / 180);
+                        ctx.fillStyle = p.color; ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size); ctx.restore();
+                    }
+                });
+                if (live) requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function initQuiz() {
+            shuffledQuestions = originalQuestions.map(q => {
+                return { ...q, shuffledOptions: shuffleArray(q.options) };
+            });
+            renderQuiz();
+            updateProgressBar();
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-cards-wrapper');
+            container.innerHTML = '';
+            shuffledQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.id = `card-q-${q.id}`;
+                
+                let innerHTML = `<div class="category-badge">${q.category} - Câu ${idx + 1}</div>`;
+                innerHTML += `<div class="question-text">${q.question}</div>`;
+                innerHTML += `<div class="options-grid">`;
+                
+                q.shuffledOptions.forEach((opt, oIdx) => {
+                    const prefix = String.fromCharCode(65 + oIdx);
+                    innerHTML += `
+                        <button class="option-btn" data-opt-text="${opt.replace(/"/g, '&quot;')}" onclick="handleSelectOption(this, '${q.id}', '${opt.replace(/'/g, "\\'")}')">
+                            <span class="option-prefix">${prefix}</span>
+                            <span class="option-body-text">${opt}</span>
+                        </button>
+                    `;
+                });
+                innerHTML += `</div>`;
+                innerHTML += `<div class="explanation-box" id="explanation-${q.id}">${q.explanation}</div>`;
+                card.innerHTML = innerHTML;
+                container.appendChild(card);
+            });
+        }
+
+        function handleSelectOption(btnElement, qId, selectedText) {
+            if (userAnswers[qId]) return;
+            const currentQuestion = shuffledQuestions.find(q => q.id === qId);
+            const isCorrect = (selectedText === currentQuestion.correctText);
+            userAnswers[qId] = { selected: selectedText, correct: isCorrect };
+
+            const card = document.getElementById(`card-q-${qId}`);
+            const buttons = card.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.classList.add('disabled');
+                if (btn.getAttribute('data-opt-text') === currentQuestion.correctText) { btn.classList.add('correct'); }
+            });
+
+            if (isCorrect) {
+                btnElement.classList.add('correct'); playSound('correct'); triggerConfetti();
+            } else {
+                btnElement.classList.add('wrong'); card.classList.add('shake'); playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+            document.getElementById(`explanation-${qId}`).style.display = 'block';
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const percent = (Object.keys(userAnswers).length / shuffledQuestions.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${percent}%`;
+        }
+
+        function showFinalScore() {
+            const total = shuffledQuestions.length;
+            let correctCount = 0;
+            Object.keys(userAnswers).forEach(qId => { if (userAnswers[qId].correct) correctCount++; });
+            const percentage = (correctCount / total) * 100;
+            let comment = "";
+
+            if (percentage < 50) {
+                comment = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else if (percentage >= 60 && percentage <= 80) {
+                comment = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else {
+                comment = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha!";
+            }
+
+            document.getElementById('score-text').innerHTML = `${correctCount} / ${total}`;
+            document.getElementById('comment-text').innerHTML = `<b>Ms Lê Hằng nhận xét:</b><br>"${comment}"`;
+            document.getElementById('result-modal').style.display = 'flex';
+        }
+
+        function closeResultModal() { document.getElementById('result-modal').style.display = 'none'; }
+
+        window.onload = () => { initQuiz(); };
+    </script>
+</body>
+</html>
